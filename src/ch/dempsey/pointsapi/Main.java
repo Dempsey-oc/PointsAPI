@@ -7,7 +7,7 @@ import ch.dempsey.pointsapi.event.Join;
 
 public class Main extends JavaPlugin{
 
-	private API api;
+	private static API api;
 	
 	@Override
 	public void onEnable() {
@@ -19,6 +19,10 @@ public class Main extends JavaPlugin{
 		api = new API(getConfig().getString("host"), getConfig().getInt("port"), getConfig().getString("username"), getConfig().getString("password"), getConfig().getString("database"));
 		
 		getServer().getPluginManager().registerEvents(new Join(api), this);
+	}
+	
+	public static API getAPIInstance() {
+		return api;
 	}
 	
 }
