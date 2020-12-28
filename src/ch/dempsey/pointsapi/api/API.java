@@ -46,22 +46,30 @@ public class API {
 	}
 	
 	public int getPoints(Player player) {
+		
+		
 		try {
+			int res;
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(uri, username, password);
 			String sql = "SELECT points FROM players WHERE uuid='"+player.getUniqueId().toString()+"'";
 			PreparedStatement st = conn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 			if(rs.next()) {
-				conn.close();
-				return rs.getInt("points");
-			}else {
-				conn.close();
-				return 6969696;
+				res = rs.getInt("points");
+			} else {
+				res = -1; 
 			}
+			conn.close();
+			return res;
 		}catch(Exception e) {
-			return 6969696;
+			e.printStackTrace();
+			int res;
+			res = -2;
+			return res;
 		}
+		
+		
 	}
 	
 	
@@ -82,14 +90,14 @@ public class API {
 		
 		int current = getPoints(player);
 		int nw = current+amnt;
-		setPoints(player,amnt);		
+		setPoints(player,nw);		
 	}
 	
 	
 	public void takePoints(Player player, int amnt) {
 		int current = getPoints(player);
 		int nw = current-amnt;
-		setPoints(player,amnt);
+		setPoints(player,nw);
 	}
 	
 }
