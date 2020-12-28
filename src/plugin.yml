@@ -2,3 +2,7 @@ name: PointsAPI
 version: 1.0
 main: ch.dempsey.pointsapi.Main
 author: _Dempsey
+
+commands:
+    points:
+       description: points admin command
